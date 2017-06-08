@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from dboard.models import Chlcontact, Chlcases
 
 
 @python_2_unicode_compatible
@@ -17,8 +18,8 @@ class Poll(models.Model):
             result += choice.count_votes()
         return result
 
-    def can_vote(self, user):
-        return not self.vote_set.filter(user=user).exists()
+    def can_vote(self, contact):
+        return not self.vote_set.filter(contact=contact).exists()
 
     def __str__(self):
         return self.question
@@ -40,6 +41,7 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    contact = models.ForeignKey(Chlcontact)
     poll = models.ForeignKey(Poll)
     choice = models.ForeignKey(Choice)
 
@@ -47,4 +49,4 @@ class Vote(models.Model):
         return u'Vote for %s' % (self.choice)
 
     class Meta:
-        unique_together = (('user', 'poll'))
+        unique_together = (('contact', 'poll'))

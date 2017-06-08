@@ -16,7 +16,7 @@ class PollAdmin(admin.ModelAdmin):
 
 class VoteAdmin(admin.ModelAdmin):
     model = Vote
-    list_display = ('choice', 'user', 'poll')
+    list_display = ('choice', 'user', 'poll','contact')
 
 admin.site.register(Poll, PollAdmin)
 admin.site.register(Vote, VoteAdmin)
