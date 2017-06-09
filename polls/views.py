@@ -31,13 +31,13 @@ class PollVoteView(RedirectView):
         poll = Poll.objects.get(id=kwargs['pk'])
         user = request.user
         choice = Choice.objects.get(id=request.POST['choice_pk'])
+        comment = request.POST.get('comment','')
         contact_key = request.POST['contact']
         kwargs['contact'] = contact_key
         contact = Chlcontact.objects.get(chlkey=contact_key)
 
         Vote.objects.create(poll=poll, user=user, choice=choice,
-                            contact=contact)
-        messages.success(request, _("Thanks for your vote."))
+                            contact=contact, comment=comment)
         return super(PollVoteView, self).post(request, *args, **kwargs)
 
     def get_redirect_url(self, **kwargs):
