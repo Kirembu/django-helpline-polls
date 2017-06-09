@@ -44,6 +44,7 @@ class Vote(models.Model):
     contact = models.ForeignKey(Chlcontact)
     poll = models.ForeignKey(Poll)
     choice = models.ForeignKey(Choice)
+    comment = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return u'Vote for %s' % (self.choice)
