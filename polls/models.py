@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-from dboard.models import Chlcontact, Chlcases
+from dboard.models import helpline_contact, helpline_cases
 
 
 @python_2_unicode_compatible
@@ -41,7 +41,7 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    contact = models.ForeignKey(Chlcontact)
+    contact = models.ForeignKey(helpline_contact)
     poll = models.ForeignKey(Poll)
     choice = models.ForeignKey(Choice)
     comment = models.TextField(blank=True, null=True)
