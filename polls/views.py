@@ -5,7 +5,7 @@ from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
 
 from polls.models import Choice, Poll, Vote
-from dboard.models import Chlcontact
+from dboard.models import helpline_contact
 
 class PollListView(ListView):
     model = Poll
@@ -34,7 +34,7 @@ class PollVoteView(RedirectView):
         comment = request.POST.get('comment','')
         contact_key = request.POST['contact']
         kwargs['contact'] = contact_key
-        contact = Chlcontact.objects.get(chlkey=contact_key)
+        contact = helpline_contact.objects.get(helplinekey=contact_key)
 
         Vote.objects.create(poll=poll, user=user, choice=choice,
                             contact=contact, comment=comment)
